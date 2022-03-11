@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
-import CircleButton from '../components/CircleButton';
+import Button from '../components/Button';
 import GradientCircularProgress from '../components/GradientCircularProgress';
 import SliderSection from '../components/SliderSection';
 
@@ -51,9 +51,6 @@ const Home = () => {
 		};
 	}, [isStarted, time]);
 
-	const circleSize = 194;
-	const strokeWidth = 3;
-
 	return (
 		<View
 			style={{
@@ -79,7 +76,7 @@ const Home = () => {
 							position: 'relative',
 							alignItems: 'center',
 							justifyContent: 'center',
-							marginTop: 70,
+							marginTop: 55,
 							marginBottom: 40,
 							alignSelf: 'center',
 						}}
@@ -95,8 +92,8 @@ const Home = () => {
 							}}
 						/>
 
-						<CircleButton
-							width={circleSize}
+						<Button
+							size={193}
 							onPress={() => {
 								if (isStarted) {
 									return setIsStarted(!isStarted);
@@ -149,7 +146,7 @@ const Home = () => {
 									</Text>
 								</View>
 							</View>
-						</CircleButton>
+						</Button>
 
 						{/* Progress */}
 						{isStarted && (
@@ -158,13 +155,13 @@ const Home = () => {
 								style={{
 									position: 'absolute',
 									zIndex: 3,
-									top: strokeWidth * -1,
-									left: strokeWidth * -1,
+									top: -1,
+									left: -1,
 								}}
 							>
 								<GradientCircularProgress
-									width={circleSize + 6}
-									strokeWidth={strokeWidth}
+									width={199}
+									strokeWidth={2}
 									progress={progress}
 								/>
 							</View>
@@ -220,13 +217,13 @@ const Home = () => {
 					zIndex: 5,
 				}}
 			>
-				<CircleButton
+				<Button
 					style={{
 						position: 'relative',
 						zIndex: 2,
 						opacity: isStarted ? 0.6 : 1,
 					}}
-					width={95}
+					size={95}
 					disabled={isStarted}
 					onPress={() => {
 						if (!isStarted) {
@@ -244,9 +241,9 @@ const Home = () => {
 					>
 						GO
 					</Text>
-				</CircleButton>
+				</Button>
 
-				<CircleButton
+				<Button
 					style={{
 						marginTop: 25,
 						position: 'relative',
@@ -254,11 +251,11 @@ const Home = () => {
 						opacity: isStarted ? 1 : 0.6,
 					}}
 					disabled={!isStarted}
-					width={65}
+					size={65}
 					onPress={() => setIsStarted(false)}
 				>
 					<IconPause />
-				</CircleButton>
+				</Button>
 
 				<View
 					style={{
