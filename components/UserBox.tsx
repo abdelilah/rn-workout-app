@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
-import CircleButton from './CircleButton';
+import Button from './Button';
 
 import imgProfilePicture from '../assets/img/profile-picture.jpg';
 
@@ -13,7 +13,7 @@ const UserBox = () => {
 				alignItems: 'center',
 			}}
 		>
-			<CircleButton width={50} disabled>
+			<Button size={50} disabled>
 				<Image
 					source={imgProfilePicture}
 					onProgress={() => console.log('Show profile')}
@@ -23,7 +23,7 @@ const UserBox = () => {
 						borderRadius: 50 / 2,
 					}}
 				/>
-			</CircleButton>
+			</Button>
 
 			<View
 				style={{

@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import UserBox from './UserBox';
-import CircleButton from './CircleButton';
+import Button from './Button';
 
 import iconMenu from '../assets/img/icon-menu.png';
 
@@ -24,7 +24,7 @@ export function NavBar() {
 			>
 				<UserBox />
 
-				<CircleButton width={50} onPress={() => console.log('Menu')}>
+				<Button size={50} onPress={() => console.log('Menu')}>
 					<Image
 						source={iconMenu}
 						style={{
@@ -32,7 +32,7 @@ export function NavBar() {
 							height: 14,
 						}}
 					/>
-				</CircleButton>
+				</Button>
 			</View>
 		</SafeAreaView>
 	);

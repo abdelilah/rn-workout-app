@@ -1,6 +1,6 @@
 import { View, Text, Image, ImageSourcePropType } from 'react-native';
 import React from 'react';
-import CircleButton from './CircleButton';
+import Button from './Button';
 import Slider from './Slider';
 
 export interface ISliderSectionProps {
@@ -34,7 +34,7 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 				marginBottom: 30,
 			}}
 		>
-			<CircleButton width={63} disabled>
+			<Button disabled>
 				<Image
 					source={icon}
 					style={{
@@ -42,7 +42,7 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 						height: 24,
 					}}
 				/>
-			</CircleButton>
+			</Button>
 
 			<View style={{ marginLeft: 20, flex: 1 }}>
 				<View
