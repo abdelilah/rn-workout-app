@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import UserBox from './UserBox';
 import Button from './Button';
 
-import iconMenu from '../assets/img/icon-menu.png';
+import IconMenu from '../assets/img/icon-menu.svg';
 
 export function NavBar() {
 	return (
@@ -25,13 +25,7 @@ export function NavBar() {
 				<UserBox />
 
 				<Button size={50} onPress={() => console.log('Menu')}>
-					<Image
-						source={iconMenu}
-						style={{
-							width: 18,
-							height: 14,
-						}}
-					/>
+					<IconMenu width={18} height={14} />
 				</Button>
 			</View>
 		</SafeAreaView>

@@ -5,9 +5,9 @@ import Button from '../components/Button';
 import GradientCircularProgress from '../components/GradientCircularProgress';
 import SliderSection from '../components/SliderSection';
 
-import iconRounds from '../assets/img/icon-rounds.png';
-import iconWorkTime from '../assets/img/icon-work-time.png';
-import iconRestTime from '../assets/img/icon-rest-time.png';
+import IconRounds from '../assets/img/icon-rounds.svg';
+import IconWorkTime from '../assets/img/icon-work-time.svg';
+import IconRestTime from '../assets/img/icon-rest-time.svg';
 import ImgRightDecoration from '../assets/img/right-decoration.svg';
 import ImgArcDecoration from '../assets/img/arc-decoration.svg';
 import IconPause from '../assets/img/icon-pause.svg';
@@ -175,18 +175,8 @@ const Home = () => {
 						}}
 					>
 						<SliderSection
-							title="Work Time"
-							icon={iconWorkTime}
-							min={1}
-							max={180}
-							value={workTime}
-							onChange={setWorkTime}
-							renderValue={(value) => `${value} mins`}
-						/>
-
-						<SliderSection
 							title="Rounds"
-							icon={iconRounds}
+							icon={IconRounds}
 							min={1}
 							max={50}
 							value={rounds}
@@ -195,8 +185,18 @@ const Home = () => {
 						/>
 
 						<SliderSection
+							title="Work Time"
+							icon={IconWorkTime}
+							min={1}
+							max={180}
+							value={workTime}
+							onChange={setWorkTime}
+							renderValue={(value) => `${value} mins`}
+						/>
+
+						<SliderSection
 							title="Rest Time"
-							icon={iconRestTime}
+							icon={IconRestTime}
 							min={0}
 							max={300}
 							value={restTime}

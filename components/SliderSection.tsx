@@ -1,10 +1,11 @@
-import { View, Text, Image, ImageSourcePropType } from 'react-native';
+import { View, Text } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import React from 'react';
 import Button from './Button';
 import Slider from './Slider';
 
 export interface ISliderSectionProps {
-	icon: ImageSourcePropType;
+	icon: React.FC<SvgProps>;
 	title: string;
 	min: number;
 	max: number;
@@ -35,13 +36,7 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 			}}
 		>
 			<Button disabled>
-				<Image
-					source={icon}
-					style={{
-						width: 24,
-						height: 24,
-					}}
-				/>
+				{React.createElement(icon, { width: 24, height: 24 })}
 			</Button>
 
 			<View style={{ marginLeft: 20, flex: 1 }}>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { Slider as RNSlider } from '@miblanchard/react-native-slider';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import imgThumb from '../assets/img/track-thumb.png';
+import ImgThumb from '../assets/img/track-thumb.svg';
 
 export interface ISliderProps {
 	min?: number;
@@ -89,15 +89,13 @@ const Slider: React.FC<ISliderProps> = ({
 							},
 						}}
 					>
-						<Image
-							source={imgThumb}
+						<ImgThumb
+							width={26}
+							height={26}
 							style={{
 								position: 'relative',
 								top: -1,
 								zIndex: 5,
-								width: 26,
-								height: 26,
-								borderRadius: 13,
 							}}
 						/>
 					</View>
