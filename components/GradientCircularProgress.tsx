@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Svg, { LinearGradient, Stop, Defs, Path } from 'react-native-svg';
-import { Animated } from 'react-native';
 
 export interface IGradientCircularProgressProps {
 	width?: number;
@@ -29,8 +28,7 @@ const GradientCircularProgress: React.FC<IGradientCircularProgressProps> = ({
 	const DIAMETER = 50;
 	const WIDTH = DIAMETER + strokeWidth;
 	const firstHalfProg = progress > DIAMETER ? 1 : progress / DIAMETER;
-	const secondHalfProg =
-		progress <= DIAMETER ? 0 : (progress - DIAMETER) / DIAMETER;
+	const secondHalfProg = progress <= DIAMETER ? 0 : (progress - DIAMETER) / DIAMETER;
 	const halfCircumference = (Math.PI * 2 * (DIAMETER / 2)) / 2;
 	const firstHalfGradientId = id();
 	const secondHalfGradientId = id();
@@ -51,9 +49,7 @@ const GradientCircularProgress: React.FC<IGradientCircularProgressProps> = ({
 			<Path
 				fill="none"
 				stroke={`url(#${firstHalfGradientId})`}
-				strokeDasharray={`${
-					firstHalfProg * halfCircumference
-				},${halfCircumference}`}
+				strokeDasharray={`${firstHalfProg * halfCircumference},${halfCircumference}`}
 				strokeLinecap="round"
 				d={`
 					M ${WIDTH / 2} ${strokeWidth / 2}
@@ -66,9 +62,7 @@ const GradientCircularProgress: React.FC<IGradientCircularProgressProps> = ({
 				<Path
 					fill="none"
 					stroke={`url(#${secondHalfGradientId})`}
-					strokeDasharray={`${
-						secondHalfProg * halfCircumference
-					},${halfCircumference}`}
+					strokeDasharray={`${secondHalfProg * halfCircumference},${halfCircumference}`}
 					strokeLinecap="round"
 					d={`
 						M ${WIDTH / 2} ${WIDTH - strokeWidth / 2}
@@ -79,24 +73,12 @@ const GradientCircularProgress: React.FC<IGradientCircularProgressProps> = ({
 			)}
 
 			<Defs>
-				<LinearGradient
-					id={firstHalfGradientId}
-					x1="50%"
-					y1="0%"
-					x2="0%"
-					y2="100%"
-				>
+				<LinearGradient id={firstHalfGradientId} x1="50%" y1="0%" x2="0%" y2="100%">
 					<Stop offset="0%" stopColor={startColor} />
 					<Stop offset="90%" stopColor={middleColor} />
 				</LinearGradient>
 
-				<LinearGradient
-					id={secondHalfGradientId}
-					x1="0%"
-					y1="0%"
-					x2="50%"
-					y2="100%"
-				>
+				<LinearGradient id={secondHalfGradientId} x1="0%" y1="0%" x2="50%" y2="100%">
 					<Stop offset="0%" stopColor={endColor} />
 					<Stop offset="90%" stopColor={middleColor} />
 				</LinearGradient>

@@ -3,6 +3,7 @@ import { SvgProps } from 'react-native-svg';
 import React from 'react';
 import Button from './Button';
 import Slider from './Slider';
+import { textStyleBold, textStyleSecondary } from '../theme';
 
 export interface ISliderSectionProps {
 	icon: React.FC<SvgProps>;
@@ -12,11 +13,13 @@ export interface ISliderSectionProps {
 	value: number;
 	onChange: (value: number) => void;
 	renderValue: (value: number) => string;
+	subtitle?: string;
 }
 
 const SliderSection: React.FC<ISliderSectionProps> = ({
 	icon,
 	title,
+	subtitle,
 	min,
 	max,
 	value,
@@ -35,9 +38,7 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 				marginBottom: 30,
 			}}
 		>
-			<Button disabled>
-				{React.createElement(icon, { width: 24, height: 24 })}
-			</Button>
+			<Button disabled>{React.createElement(icon, { width: 24, height: 24 })}</Button>
 
 			<View style={{ marginLeft: 20, flex: 1 }}>
 				<View
@@ -50,19 +51,32 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 				>
 					<Text
 						style={{
-							fontSize: 18,
-							color: '#ffffff',
-							fontFamily: 'ProductSans-Bold',
+							...textStyleBold,
+							lineHeight: 16,
 						}}
 					>
 						{title}
+
+						{subtitle && (
+							<>
+								{' '}
+								<Text
+									style={{
+										...textStyleSecondary,
+										lineHeight: 16,
+										color: '#6F7880',
+									}}
+								>
+									{subtitle}
+								</Text>
+							</>
+						)}
 					</Text>
 
 					<Text
 						style={{
-							fontSize: 14,
+							...textStyleSecondary,
 							color: '#6E7880',
-							fontFamily: 'ProductSans-Regular',
 						}}
 					>
 						{renderValue(value)}

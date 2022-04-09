@@ -1,57 +1,93 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Button from './Button';
+import { useRecoilState } from 'recoil';
+import authState from '../atoms/auth';
+import { textStyleBold } from '../theme';
 
 import imgProfilePicture from '../assets/img/profile-picture.jpg';
 
 const UserBox = () => {
-	return (
-		<View
-			style={{
-				display: 'flex',
-				flexDirection: 'row',
-				alignItems: 'center',
-			}}
-		>
-			<Button size={50} disabled>
-				<Image
-					source={imgProfilePicture}
-					onProgress={() => console.log('Show profile')}
-					style={{
-						width: 50,
-						height: 50,
-						borderRadius: 50 / 2,
-					}}
-				/>
-			</Button>
+	const nav = useNavigation();
+	const [user] = useRecoilState(authState);
 
+	return (
+		<TouchableOpacity
+			onPress={() => nav.navigate(user ? 'Profile' : 'Welcome')}
+		>
 			<View
 				style={{
-					marginLeft: 10,
+					flexDirection: 'row',
+					alignItems: 'center',
 				}}
 			>
-				<Text
+				<Button size={40} hideShadow={true} disabled>
+					<Image
+						source={imgProfilePicture}
+						onProgress={() => console.log('Show profile')}
+						style={{
+							width: 40,
+							height: 40,
+							borderRadius: 40 / 2,
+						}}
+					/>
+				</Button>
+
+				<View
 					style={{
-						fontSize: 14,
-						fontWeight: 'bold',
-						color: '#ffffff',
-						fontFamily: 'ProductSans-Bold',
+						marginLeft: 10,
+						alignItems: 'flex-start',
 					}}
 				>
-					Cameron Williamson
-				</Text>
-				<Text
-					style={{
-						fontSize: 19,
-						fontWeight: 'bold',
-						color: '#6E7880',
-						fontFamily: 'ProductSans-Bold',
-					}}
-				>
-					Welcome back!
-				</Text>
+					{user ? (
+						<>
+							<Text
+								style={{
+									...textStyleBold,
+									fontSize: 12,
+									lineHeight: 14,
+									color: '#98A3AB',
+								}}
+							>
+								Welcome back!
+							</Text>
+							<Text
+								style={{
+									...textStyleBold,
+									fontSize: 16,
+									lineHeight: 18,
+								}}
+							>
+								{user.firstName || user.email}
+							</Text>
+						</>
+					) : (
+						<>
+							<Text
+								style={{
+									...textStyleBold,
+									fontSize: 16,
+									lineHeight: 18,
+								}}
+							>
+								Sign In
+							</Text>
+							<Text
+								style={{
+									...textStyleBold,
+									fontSize: 12,
+									lineHeight: 14,
+									color: '#98A3AB',
+								}}
+							>
+								to keep track of your workouts
+							</Text>
+						</>
+					)}
+				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 };
 

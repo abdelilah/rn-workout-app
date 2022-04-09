@@ -22,6 +22,7 @@ export interface IButtonProps {
 	style?: StyleProp<ViewStyle>;
 	size?: number;
 	disabled?: boolean;
+	hideShadow?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -30,6 +31,7 @@ const Button: React.FC<IButtonProps> = ({
 	style = {},
 	size = 63,
 	disabled = false,
+	hideShadow = false,
 }) => {
 	const [isPressed, setIsPressed] = useState(false);
 
@@ -49,7 +51,7 @@ const Button: React.FC<IButtonProps> = ({
 			}}
 		>
 			{/* Shadow */}
-			{!isPressed && (
+			{!isPressed && hideShadow === false && (
 				<Svg
 					style={{
 						position: 'absolute',
