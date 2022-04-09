@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Alert, Animated, Easing } from 'react-native';
+import { View, Text, Animated, Easing } from 'react-native';
 
 import Button from '../../components/Button';
 

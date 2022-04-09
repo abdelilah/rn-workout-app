@@ -84,3 +84,18 @@ export const getWorkouts = (): Promise<IWorkout[]> =>
 			);
 		});
 	});
+
+export const deleteWorkout = (id: string): Promise<boolean> =>
+	new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			tx.executeSql(
+				'DELETE FROM workouts WHERE id = ?',
+				[id],
+				() => resolve(true),
+				(_, error) => {
+					reject(error);
+					return false;
+				},
+			);
+		});
+	});

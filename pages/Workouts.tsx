@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ScrollView, View, TouchableOpacity } from 'react-native';
+import { Text, ScrollView, View, TouchableOpacity, Alert } from 'react-native';
 import { format, formatDuration } from 'date-fns';
+import { connectActionSheet, useActionSheet } from '@expo/react-native-action-sheet';
 
 import { IWorkout } from '../atoms/workouts';
 import Page from '../components/Page';
-import { getWorkouts } from '../lib/db';
+import { deleteWorkout, getWorkouts } from '../lib/db';
 import { textStyleBold, textStyleSecondary } from '../theme';
 
 import IconCalendar from '../assets/img/icon-calendar.svg';
@@ -14,6 +15,7 @@ import WorkoutsGradientTop from '../assets/img/workouts-gradient-top.svg';
 
 const Workouts = () => {
 	const [workouts, setWorkouts] = useState<IWorkout[]>([]);
+	const { showActionSheetWithOptions } = useActionSheet();
 
 	useEffect(() => {
 		getWorkouts().then(setWorkouts);
@@ -38,6 +40,7 @@ const Workouts = () => {
 					width: '100%',
 					zIndex: 1,
 				}}
+				pointerEvents="none"
 			>
 				<WorkoutsGradientTop />
 			</View>
@@ -78,6 +81,42 @@ const Workouts = () => {
 									</Text>
 
 									<TouchableOpacity
+										onPress={() => {
+											showActionSheetWithOptions(
+												{
+													options: ['Delete', 'Cancel'],
+													cancelButtonIndex: 1,
+													destructiveButtonIndex: 0,
+												},
+												(btnIndex) => {
+													if (btnIndex === 0) {
+														Alert.alert(
+															'Delete Workout',
+															'Are you sure you want to delete this workout?',
+															[
+																{
+																	text: 'Cancel',
+																	style: 'cancel',
+																},
+																{
+																	text: 'Delete',
+																	style: 'destructive',
+																	onPress: () => {
+																		deleteWorkout(id).then(() => {
+																			setWorkouts(
+																				workouts.filter(
+																					(workout) => workout.id !== id,
+																				),
+																			);
+																		});
+																	},
+																},
+															],
+														);
+													}
+												},
+											);
+										}}
 										style={{
 											paddingHorizontal: 5,
 											marginLeft: 'auto',
@@ -127,4 +166,4 @@ const Workouts = () => {
 	);
 };
 
-export default Workouts;
+export default connectActionSheet(Workouts);

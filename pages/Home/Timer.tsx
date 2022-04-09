@@ -31,14 +31,13 @@ const Timer: React.FC<ITimerProps> = ({ onComplete }) => {
 
 		const interval = setInterval(() => {
 			const { workTime, restTime, rounds } = currentWorkout;
-			const totalWorkoutSeconds = (workTime + restTime) * rounds * 60;
+			const totalWorkoutSeconds = (workTime + (restTime - 1)) * rounds * 60;
 			if (secondsElapsed >= totalWorkoutSeconds) {
 				onComplete && onComplete();
 				startWorkout(); // Pauses the workout
 				return;
 			}
-			// setSecondsElapsed(secondsElapsed + 1);
-			setSecondsElapsed(secondsElapsed + 60); // TODO: delete this line
+			setSecondsElapsed(secondsElapsed + 1);
 		}, 1000);
 
 		return () => {
