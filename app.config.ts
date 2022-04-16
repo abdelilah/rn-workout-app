@@ -8,4 +8,5 @@ export default {
 		barStyle: 'light-content',
 		backgroundColor: '#242a2e',
 	},
+	icon: './assets/icon.png',
 };

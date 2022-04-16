@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { padStart } from 'lodash';
+import { Audio } from 'expo-av';
 
 import Button from '../../components/Button';
 import AnimatedCircularProgress from '../../components/AnimatedCircularProgress';
@@ -14,8 +15,19 @@ export interface ITimerProps {
 }
 
 const Timer: React.FC<ITimerProps> = ({ onComplete }) => {
+	const [sound, setSound] = React.useState<Audio.Sound>();
 	const [currentWorkout, { startWorkout }] = useWorkout();
 	const [secondsElapsed, setSecondsElapsed] = useState(0);
+
+	useEffect(() => {
+		Audio.Sound.createAsync(require('../../assets/audio/chime.mp3')).then(({ sound }) => {
+			setSound(sound);
+		});
+
+		return () => {
+			sound && sound.unloadAsync();
+		};
+	}, []);
 
 	// Reset when workout changes
 	useEffect(() => {
@@ -31,7 +43,7 @@ const Timer: React.FC<ITimerProps> = ({ onComplete }) => {
 
 		const interval = setInterval(() => {
 			const { workTime, restTime, rounds } = currentWorkout;
-			const totalWorkoutSeconds = (workTime + (restTime - 1)) * rounds * 60;
+			const totalWorkoutSeconds = (workTime + restTime) * rounds - restTime;
 			if (secondsElapsed >= totalWorkoutSeconds) {
 				onComplete && onComplete();
 				startWorkout(); // Pauses the workout
@@ -46,13 +58,13 @@ const Timer: React.FC<ITimerProps> = ({ onComplete }) => {
 	}, [secondsElapsed, currentWorkout]);
 
 	const { startedAt, pausedAt, workTime, restTime, rounds } = currentWorkout;
-	const secondsPerRound = (workTime + restTime) * 60;
+	const secondsPerRound = workTime + restTime;
 	const round = Math.floor(secondsElapsed / secondsPerRound) + 1;
 
 	const curRoundSecondsElapsed = secondsElapsed - (round - 1) * secondsPerRound;
 	const secondsRemainingInRound = secondsPerRound - curRoundSecondsElapsed;
 
-	const secondsWorkRemaining = secondsRemainingInRound - restTime * 60;
+	const secondsWorkRemaining = secondsRemainingInRound - restTime;
 	const secondsRestRemaining = secondsRemainingInRound;
 
 	let status: 'work' | 'rest' = 'rest';
@@ -67,11 +79,19 @@ const Timer: React.FC<ITimerProps> = ({ onComplete }) => {
 	}
 
 	if (status === 'work') {
-		progress = 100 - (secondsWorkRemaining / (workTime * 60)) * 100;
+		progress = 100 - (secondsWorkRemaining / workTime) * 100;
 	}
 
 	if (status === 'rest') {
-		progress = (secondsRestRemaining / (restTime * 60)) * 100;
+		progress = (secondsRestRemaining / restTime) * 100;
+	}
+
+	if (
+		sound &&
+		secondsElapsed > 0 &&
+		((status === 'rest' && progress === 100) || (status === 'work' && progress === 0))
+	) {
+		sound.replayAsync();
 	}
 
 	return (

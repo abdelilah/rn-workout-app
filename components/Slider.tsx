@@ -8,16 +8,12 @@ import ImgThumb from '../assets/img/track-thumb.svg';
 export interface ISliderProps {
 	min?: number;
 	max?: number;
+	step?: number;
 	value?: number;
 	onChange?: (value: number) => void;
 }
 
-const Slider: React.FC<ISliderProps> = ({
-	min = 0,
-	max = 100,
-	value = 0,
-	onChange,
-}) => {
+const Slider: React.FC<ISliderProps> = ({ min = 0, max = 100, step = 1, value = 0, onChange }) => {
 	const [isPressed, setIsPressed] = useState(false);
 
 	return (
@@ -103,7 +99,7 @@ const Slider: React.FC<ISliderProps> = ({
 				minimumValue={min}
 				maximumValue={max}
 				value={value}
-				step={1}
+				step={step}
 				onValueChange={onChange}
 			/>
 		</View>

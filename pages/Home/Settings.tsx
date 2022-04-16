@@ -9,6 +9,8 @@ import { currentWorkoutState } from '../../atoms/workouts';
 import IconRounds from '../../assets/img/icon-rounds.svg';
 import IconWorkTime from '../../assets/img/icon-work-time.svg';
 import IconRestTime from '../../assets/img/icon-rest-time.svg';
+import { secondsToMinutesAndSeconds } from '../../lib/time';
+import { padStart } from 'lodash';
 
 const Settings: React.FC = () => {
 	const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -66,11 +68,15 @@ const Settings: React.FC = () => {
 				title="Work Time"
 				subtitle="per round"
 				icon={IconWorkTime}
-				min={1}
-				max={60}
+				min={10}
+				max={1800}
+				step={5}
 				value={workTime}
 				onChange={handleSettingChange('workTime')}
-				renderValue={(value) => `${value} mins`}
+				renderValue={(value) => {
+					const { minutes, seconds } = secondsToMinutesAndSeconds(value);
+					return `${padStart(`${minutes}`, 2, '0')}:${padStart(`${seconds}`, 2, '0')}`;
+				}}
 			/>
 
 			<SliderSection
@@ -78,10 +84,14 @@ const Settings: React.FC = () => {
 				subtitle="per round"
 				icon={IconRestTime}
 				min={0}
-				max={30}
+				max={900}
+				step={5}
 				value={restTime}
 				onChange={handleSettingChange('restTime')}
-				renderValue={(value) => `${value} mins`}
+				renderValue={(value) => {
+					const { minutes, seconds } = secondsToMinutesAndSeconds(value);
+					return `${padStart(`${minutes}`, 2, '0')}:${padStart(`${seconds}`, 2, '0')}`;
+				}}
 			/>
 		</Animated.View>
 	);

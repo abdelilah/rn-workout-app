@@ -14,6 +14,7 @@ export interface ISliderSectionProps {
 	onChange: (value: number) => void;
 	renderValue: (value: number) => string;
 	subtitle?: string;
+	step?: number;
 }
 
 const SliderSection: React.FC<ISliderSectionProps> = ({
@@ -22,6 +23,7 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 	subtitle,
 	min,
 	max,
+	step = 1,
 	value,
 	onChange,
 	renderValue,
@@ -83,7 +85,7 @@ const SliderSection: React.FC<ISliderSectionProps> = ({
 					</Text>
 				</View>
 
-				<Slider {...{ min, max, value, onChange }} />
+				<Slider {...{ min, max, step, value, onChange }} />
 			</View>
 		</View>
 	);
