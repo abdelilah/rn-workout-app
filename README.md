@@ -4,7 +4,8 @@ A prototype for a workouts app based on [a concept design](https://dribbble.com/
 
 ## Screenshots
 
-![Screenshot](https://cdn-abdel.s3.us-east-1.amazonaws.com/github/rn-workout-app/screenshot.gif)
+![screenshot](https://user-images.githubusercontent.com/465667/164104546-9e3b12bc-440a-4d39-b623-b79c1c984ea4.gif)
+
 
 ## Try it out
 
